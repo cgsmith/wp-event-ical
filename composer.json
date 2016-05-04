@@ -1,0 +1,19 @@
+{
+  "name": "cgsmith/wp-event-ical",
+  "description": "Extends stuttter/wp-event-calendar and provides a way to export iCal and ICS files in WordPress",
+  "homepage": "https://github.com/cgsmith/wp-event-ical",
+  "type": "wordpress-plugin",
+  "require": {
+    "php": ">=5.2",
+    "composer/installers": "^1.0",
+    "stuttter/wp-event-calendar": "^0.3"
+  },
+  "license": "GPLv2",
+  "authors": [
+    {
+      "name": "Chris Smith",
+      "email": "chris@cgsmith.net"
+    }
+  ]
+}
+
