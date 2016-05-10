@@ -25,7 +25,9 @@ function _wp_event_ical_require()
     require_once($pluginPath . 'includes/admin.php');
 }
 add_action('plugins_loaded', '_wp_event_ical_require');
-
+add_action('admin_menu', 'test_load');
+function test_load() {
+}
 
 /**
  * The code that runs during plugin activation.
@@ -62,22 +64,22 @@ function wp_event_ical_link()
             : "edit.php?post_type={$post_type}";
 
         // add the submenu page
-        add_submenu_page(
+        $hook = add_submenu_page(
             $parent,
             __('Export iCal', 'wp-event-ical'),
             __('Export iCal', 'wp-event-ical'),
             'read_calendar',
-            'export-calendar-export',
+            'export-calendar-event',
             'wp_event_ical_admin_render'
         );
     }
 
     // Add the export tool to the Tools section of WordPress as well
-    add_management_page(
+    $hook2 = add_management_page(
         __('Export iCal', 'wp-event-ical'),
         __('Export iCal', 'wp-event-ical'),
         'read_calendar',
-        'export-ical-event',
+        'export-calendar-event',
         'wp_event_ical_admin_render'
     );
 
@@ -86,6 +88,7 @@ function wp_event_ical_link()
 
 // set to priority 15 so it is added after JJJ's plugin
 add_action('admin_menu', 'wp_event_ical_link', 15);
+add_action('parse_request', 'wp_event_ical_export');
 
 // Register activation and deactiviation hooks
 register_activation_hook(__FILE__, 'wp_event_ical_activation');

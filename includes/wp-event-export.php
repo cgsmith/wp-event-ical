@@ -29,17 +29,21 @@ class WP_Event_Exporter
     /**
      * @var array Events from WP Query
      */
-    protected $events;
+    public $events;
+
+    /**
+     * @var string File for ICS
+     */
+    protected $icsFile = '';
 
     /**
      * Constructor
+     * 
+     * @param array $events
      */
-    public function __construct()
+    public function __construct($events)
     {
-        // @todo have arguments to accept what events to export
-        $events = $this->getEvents(); // Does this belong here?
-        // iterate over posts and conform to proper type
-        // setup repeating events if they need any special TLC
+        $this->events = $events;
     }
 
     /**
@@ -51,39 +55,38 @@ class WP_Event_Exporter
     }
 
     /**
-     * Query WordPress and return the proper posts named events
-     */
-    protected function getEvents()
-    {
-        
-    }
-
-    /**
      * Creates the exported file
      *
      * @param string $filename Name of the file to be created
      * @param string $filetype Type of the file ('text/calendar')
      */
-    public function export($filename, $filetype)
+    protected function export($filename, $filetype)
     {
         //Buffer start
-        ob_start();
+        //ob_start();
 
         // File header
         header('Content-Description: File Transfer');
         header('Content-Disposition: attachment; filename=' . $filename);
         header('Content-Type: ' . $filetype . '; charset=' . get_option('blog_charset'), true);
-
-        //Data
+/*
+        //Begin Data Transmit
+        $content = 'BEGIN:VCALENDAR' . PHP_EOL .
+            'VERSION:2.0' . PHP_EOL .
+            'CALSCALE:GREGORIAN' . PHP_EOL ;
+        
+        // Echo out all of our events :) 
         foreach ($this->events as $item) {
-            echo $item; // ideally this will be the ICS formatted event
+             $item;
         }
-
+        
+        echo 'END:VCALENDAR' . PHP_EOL;
+        
         //Collect output and echo
         $content = ob_get_contents();
         ob_end_clean();
-        echo $content;
-        exit();
+        echo $content;*/
+        exit;
     }
 }
 endif; //class doesn't exist
